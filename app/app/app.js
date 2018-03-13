@@ -101,6 +101,10 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider){
         url: '/services-map',
         templateUrl: 'views/services-map.html'
       })
+      .state('audio', {
+        url: '/audio',
+        templateUrl: 'views/audio.html'
+      })
       .state('draft', {
         url: '/draft',
         templateUrl: 'views/draft.html'
