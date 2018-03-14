@@ -8,10 +8,19 @@
         <h2 style="margin-bottom:25px">Frequently Asked Questions</h2>
         <div class="col-sm-6">
           <ul>
+            <li><a ng-click="scrollTo('why-needed')">Why is this needed in Monterey County?</a></li>
+            <li><a ng-click="scrollTo('areas-served')">What areas are served?</a></li>
+            <li><a ng-click="scrollTo('cost-service')">What is the cost to use the service?</a></li>
+            <li><a ng-click="scrollTo('cost-low')">How are the costs of rides kept low?</a></li>
+            <li><a ng-click="scrollTo('riders-pay')">How do riders pay for rides?</a></li>
+            
             <li><a ng-click="scrollTo('what-is-itn')">What is the Independent Transportation Network®?</a></li>
             <li><a ng-click="scrollTo('service-for')">What do ITN<em>MontereyCounty</em> members use the service for?</a></li>
             <li><a ng-click="scrollTo('transporation-ss')">What is Transportation Social Security™?</a></li>
             <li><a ng-click="scrollTo('road-scholarship')">What is the Road Scholarship Program™?</a></li>
+            
+            <li><a ng-click="scrollTo('ride-shop')">What is Ride & Shop™?</a></li>
+            <li><a ng-click="scrollTo('healthy-miles')">What is Healthy Miles™?</a></li>
             <li><a ng-click="scrollTo('cartrade')">What is CarTrade™?</a></li>
             <li><a ng-click="scrollTo('gift-certificate')">What are ITN Gift Certificates?</a></li>
             <li><a ng-click="scrollTo('walk-for-rides')">What is the Walk for Rides™?</a></li>
@@ -35,6 +44,61 @@
       <!-- <div class="jumbotron section" style="background: #b3c9cd70"> -->
       <div class="jumbotron section qa-wrapper">
         <div class="container">
+          <div class="qa" id="why-needed">
+          <div class="question">Why is this needed in Monterey County?</div>
+          
+          <div class="answer">
+          <p>Transportation is a quality of life issue for people of all ages. Older adults become especially vulnerable as they lose mobility and independence as the gradually reduce their driving to address personal limitations.</p>
+
+          <p>On average; Women outlive their ability to drive by 10 years, men by 6 years.</p>
+
+          <p>Older people who continue to drive face the 2nd highest fatal crash rate of all age groups. Drivers ages 80 and older have higher crash death rates per mile driven then other age groups except teen drivers.</p>
+
+          <p>The number of people aged 60 years and older in Monterey County is projected to increase by more than 60% by the year 2030. In real numbers this population is forecasted to increase from 69,850 in 2010 to 112,768 in 2030. Over 80% of the senior population in Monterey County lives on the Monterey Peninsula or in the City of Salinas.</p>
+          </div>
+          </div>
+          
+          <div class="qa" id="areas-served">
+          <div class="question">What areas are served?</div>
+          
+          <div class="answer">
+          <p>The service area will be the greater Monterey Peninsula, City of Salinas and Castroville.<br>
+          <a ui-sref="what-we-do">View All Locations</a></p>
+          </div>
+          </div>
+          
+          <div class="qa" id="cost-service">
+          <div class="question">What is the cost to use the service?</div>
+          
+          <div class="answer">
+          <p>Yes, cost will be dependent on fundraising through community partners. In general:
+            <ul>
+              <li>Users must be members of ITNMontereyCounty. Annual membership is $60 for an individual and $80 for a family.</li>
+              <li>The average ride will cost less than the cost of an equivalent taxi cab ride.</li>
+              <li>The Independent Transportation Network America (ITNA) model includes scholarships to assist low-income riders.</li>
+              <li>Discounts are applied for shared rides and scheduling in advance.</li>
+            </ul>
+          </p>
+          </div>
+          </div>
+          
+          <div class="qa" id="cost-low">
+          <div class="question">How are the costs of rides kept low?</div>
+          
+          <div class="answer">
+          <p>Volunteer drivers keep costs down by providing the majority of the trips. An innovative credit program allows drivers to earn credits towards future trips for every trip they provide. Credits can be banked for the driver's future use or donated to members in the area or other affiliate areas. </p>
+          <p>There are several innovative ideas that encourage business and groups to provide scholarships for their clients. I.e.: "Ride and Shop" and "Healthy Miles" In other affiliate areas donations from local community groups and businesses cover half the cost to operate the program. <a ui-sref="become-member">See become a member</a></p>
+          </div>
+          </div>
+          
+          <div class="qa" id="riders-pay">
+          <div class="question">How do riders pay for rides?</div>
+          
+          <div class="answer">
+          <p>Members place funds in an account for their future use. The cost of each ride is debited from the member's account. No cash is exchanged between the driver and the rider.<a ui-sref="become-member">See become a member</a></p>
+          </div>
+          </div>
+          
           <div class="qa" id="what-is-itn">
           <div class="question">What is the Independent Transportation Network®?</div>
           
@@ -73,6 +137,20 @@
           <div class="question">What is the Road Scholarship Program™?</div>
           <div class="answer">
             <p>This is a program to help low income seniors pay for their rides.</p>
+          </div>
+          </div>
+          
+          <div class="qa" id="ride-shop">
+          <div class="question">What is Ride & Shop™?</div>
+          <div class="answer">
+            <p>Merchants such as super markets and shopping malls help to pay for rides. The payment is electronically integrated into ITN<em>Rides</em>™ technology so there are no stamps or stickers for consumers to collect. It is a consumer-friendly paperless system.</p>
+          </div>
+          </div>
+          
+          <div class="qa" id="healthy-miles">
+          <div class="question">What is HealthyMiles™?</div>
+          <div class="answer">
+            <p>Health providers help to pay for rides, similar to Ride & Shop. Please <a ui-sref="contact">contact us</a> and we will mail you an application form.</p>
           </div>
           </div>
 
