@@ -1759,7 +1759,7 @@ h2,h3 {line-height:1.7}
   .homepage .progress {height: 500px;}
 }
 
-@media (min-width: 768px) and (max-width: 1533px) {
+@media (min-width: 768px) and (max-width: 1700px) {
   .navbar-header {
     margin-left:auto !important;
     margin-right:auto !important;
@@ -1800,6 +1800,8 @@ h2,h3 {line-height:1.7}
 /* MOBILE */
 
 @media (max-width: 450px) {
+  
+  nav .navbar-header img {height:40px}
   
   .navbar-collapse {
     max-height: 1000px;
