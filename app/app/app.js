@@ -275,7 +275,7 @@ myApp.controller('MainController', ['$scope', '$transitions','$http', '$anchorSc
           subject: $scope.formSubject,
           text: $scope.formData,
           pdf: $scope.dataPDF
-        }).then(res=>{
+        }).then((function(res){
             $scope.loading = false;
             $scope.serverMessage = 'Your form was submitted successfully. You should hear back from us soon.';
         });
@@ -300,7 +300,7 @@ myApp.controller('MainController', ['$scope', '$transitions','$http', '$anchorSc
           subject: $scope.formSubject,
           text: $scope.formData,
           pdf: $scope.dataPDF
-        }).then(res=>{
+        }).then((function(res){
             $scope.loading = false;
             $scope.serverMessage = 'Your form was submitted successfully. You should hear back from us soon.';
         });
