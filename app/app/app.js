@@ -174,7 +174,8 @@ myApp.controller('MainController', ['$scope', '$transitions','$http', '$anchorSc
   }
   
   $scope.resetFormData = function(){
-    $scope.formData = {}
+    $scope.formData = {};
+    $scope.serverMessage = "";
   }
 
   $scope.nextTabMemberApp = function(prev){
