@@ -728,6 +728,9 @@ nav .dropdown-menu li.divider{
 #board .row .showBoardBio.ng-hide, #staff .row .showBoardBio.ng-hide{
   opacity:0;
 }
+#staff .col-sm-4 {
+  padding:3%;
+}
 .org-section {
   overflow:hidden;
 }
