@@ -55,7 +55,9 @@
               
               </form>
             </div>
-            {{serverMessage}}
+            
+            <p ng-if="loading"><em>Loading. Please wait</em></p>
+            <p style="color:red; margin-top:50px"><strong>{{serverMessage}}</strong></p>
           </div>
         </div>
       
