@@ -503,9 +503,9 @@ myApp.controller('MainController', ['$scope', '$transitions','$http', '$anchorSc
     if (formType === 'contact' && objLength === 5){
       console.log('submitting valid contact form');
       formObj = {
-        from: '"ITNSuncoast Web User" <donotreply@itnamerica.com>',
+        from: '"ITNMontereyCounty Web User" <donotreply@itnamerica.com>',
         to: 'itnamerica2018@gmail.com',
-        subject: "ITNSuncoast Contact Form Submitted",
+        subject: "ITNMontereyCounty Contact Form Submitted",
         text: $scope.formData,
         html: "<p><strong>Name:</strong>: " + $scope.formData.name + "</p>\n" +
         "<p><strong>Email:</strong>: " + $scope.formData.email + "</p>\n " +
@@ -517,9 +517,9 @@ myApp.controller('MainController', ['$scope', '$transitions','$http', '$anchorSc
     } else if (formType === 'newsletter' && objLength === 1){
       console.log('submitting valid newsletter form');
         formObj = {
-          from: '"ITNSuncoast Web User" <donotreply@itnamerica.com>',
+          from: '"ITNMontereyCounty Web User" <donotreply@itnamerica.com>',
           to: 'itnamerica2018@gmail.com',
-          subject: "ITNSuncoast Request to be added to Newsletter",
+          subject: "ITNMontereyCounty Request to be added to Newsletter",
           text: $scope.formData,
           html: "<p><strong>Email:</strong>: " + $scope.formData.email + "</p> ",
           formType: $scope.formType
@@ -545,10 +545,10 @@ myApp.controller('MainController', ['$scope', '$transitions','$http', '$anchorSc
         $(document).ready(function(){
           $('#pdfVersion').css('display', 'block');
         })
-        $scope.formSubject = 'ITNStagingEnv - New ' + formType + ' application received';
+        $scope.formSubject = 'ITNMontereyCounty - New ' + formType + ' application received';
         $scope.generateMultiPagePDF();
       } else if (formType === 'nonrider') {
-          $scope.formSubject = 'ITNStagingEnv - Non-Rider application Form submitted';
+          $scope.formSubject = 'ITNMontereyCounty - Non-Rider application Form submitted';
           $scope.generatePDF();
       } 
     } else {
