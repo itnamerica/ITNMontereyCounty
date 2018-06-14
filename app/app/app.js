@@ -292,7 +292,7 @@ var originalFormData = $scope.formData;
   }
   
   $scope.resetFormData = function(){
-      $scope.formData = {};
+      $scope.formData = originalFormData;
       $scope.serverMessage = "";
       $scope.loading = false;
       $scope.tab = 1;
