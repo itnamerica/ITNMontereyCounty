@@ -236,24 +236,24 @@ myApp.controller('MainController', ['$scope', '$transitions','$http', '$anchorSc
   };
   $scope.pdfUrl = '';
   $scope.formData = {
-  requestDriverRecord: {
-    signature: '',
-    date: '',
-    name: ''
-  },
-  requestCriminalRecord: {
-    signature: '',
-    date: '',
-    name: ''
-  },
-  vehicleDescription: {
-    signature: '',
-    date: ''
-  },
-  changeOfStatus: {
-    signature: '',
-    date: ''
-  }
+    requestDriverRecord: {
+      signature: '',
+      date: '',
+      name: ''
+    },
+    requestCriminalRecord: {
+      signature: '',
+      date: '',
+      name: ''
+    },
+    vehicleDescription: {
+      signature: '',
+      date: ''
+    },
+    changeOfStatus: {
+      signature: '',
+      date: ''
+    }
 };
 var originalFormData = $scope.formData;
   
