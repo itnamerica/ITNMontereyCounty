@@ -120,18 +120,19 @@ myApp.config(function($stateProvider, $urlRouterProvider, $locationProvider){
           formType: null
         }
       })
-      .state('draft', {
-        url: '/draft',
-        templateUrl: viewsPath + 'draft.html'
-      })
       .state('wildcard', {
         url: '/*',
         templateUrl: viewsPath + 'home.html'
+      })
+      .state('draft', {
+        url: '/draft',
+        templateUrl: viewsPath + 'draft.html'
       })
 
   // default fall back route
   $urlRouterProvider.otherwise('/');
   $locationProvider.html5Mode(true).hashPrefix('');
+
 })
 
 
@@ -217,45 +218,39 @@ myApp.controller('MainController', ['$scope', '$transitions','$http', '$anchorSc
     {name: 'Donate', state: 'donate', url: $scope.viewsPath + '/donate.html'},
     {name: 'Corporate Partnership', state: 'corporate', url: $scope.viewsPath + '/corporate.html'}
   ];
-  $scope.formType = '';
-  $scope.memberFormData = [];
-  $scope.volunteerFormData = [];
-  $scope.nonRiderFormData = [];
-  $scope.contactFormData = [];
-  $scope.newsletterFormData = [];
-  $scope.formObj = {};
-  $scope.formObjType = {};
-  $scope.session = null;
-  console.log('session is ', $scope.session);
-  $scope.formCount = {
-    member: 0,
-    volunteer: 0,
-    nonrider: 0,
-    contact: 0,
-    newsletter: 0
-  };
-  $scope.pdfUrl = '';
-  $scope.formData = {
-    requestDriverRecord: {
-      signature: '',
-      date: '',
-      name: ''
-    },
-    requestCriminalRecord: {
-      signature: '',
-      date: '',
-      name: ''
-    },
-    vehicleDescription: {
-      signature: '',
-      date: ''
-    },
-    changeOfStatus: {
-      signature: '',
-      date: ''
-    }
-};
-var originalFormData = $scope.formData;
+    $scope.formType = '';
+    $scope.memberFormData = [];
+    $scope.volunteerFormData = [];
+    $scope.nonRiderFormData = [];
+    $scope.contactFormData = [];
+    $scope.newsletterFormData = [];
+    $scope.formObj = {};
+    $scope.formObjType = {};
+    $scope.session = null;
+    console.log('session is ', $scope.session);
+    $scope.formCount = {
+      member: 0,
+      volunteer: 0,
+      nonrider: 0,
+      contact: 0,
+      newsletter: 0
+    };
+    $scope.pdfUrl = '';
+    $scope.formData = {
+      requestDriverRecord: {},
+      requestCriminalRecord: {},
+      vehicleDescription: {},
+      changeOfStatus: {},
+      drivingExperience: {},
+      firstReference: {},
+      secondReference: {},
+      thirdReference: {},
+      firstEmergencyContact: {},
+      secondEmergencyContact: {}
+    };    
+    var originalFormData = $scope.formData;
+    $scope.showForm = false;
+
   
 
   $transitions.onSuccess({}, function(transition){
@@ -275,7 +270,7 @@ var originalFormData = $scope.formData;
   
   //use this function instead of ng-href as ng-href is not compatible with html5mode
   $scope.redirectToURL = function(url){
-    $window.open(url, '_blank'); 
+    $window.open(url, '_blank');
   }
   
   $scope.scrollTo = function(id) {
@@ -442,7 +437,8 @@ var originalFormData = $scope.formData;
       var currentBlob = new Blob([uintArray], {type: 'application/pdf'});
       $scope.pdfUrl = URL.createObjectURL(currentBlob);
       // $("#output").append($("<a/>").attr({href: $scope.pdfUrl}).append("Download"));
-      $scope.redirectToURL($scope.pdfUrl);
+      // $scope.redirectToURL($scope.pdfUrl);
+      window.location.href = $scope.pdfUrl;
     }
     else {
       return $scope.pdfUrl = "This form does not contain a PDF";
@@ -512,27 +508,173 @@ var originalFormData = $scope.formData;
   $scope.logout = function(){
     $window.location.reload();
   };
-
+  
   $scope.prepopulate = function(currentModel, modelType){
-  if (modelType === 'date'){
-    $scope.formData.requestDriverRecord.date = currentModel;
-    $scope.formData.requestCriminalRecord.date = currentModel;
-    $scope.formData.vehicleDescription.date = currentModel;
-    $scope.formData.changeOfStatus.date = currentModel;
-  } else if (modelType === 'signature'){
-    $scope.formData.requestDriverRecord.signature = currentModel;
-    $scope.formData.requestCriminalRecord.signature = currentModel;
-    $scope.formData.vehicleDescription.signature = currentModel;
-    $scope.formData.changeOfStatus.signature = currentModel;
-  } else if (modelType === 'name'){
-    $scope.formData.requestDriverRecord.name = currentModel;
-    $scope.formData.requestCriminalRecord.name = currentModel;
-  } else if (modelType === 'dob'){
-    $scope.formData.requestCriminalRecord.dob = currentModel;
-  } else if (modelType === 'maiden'){
-    $scope.formData.requestCriminalRecord.maidenName = currentModel;
-  }
+    if (modelType === 'date'){
+      $scope.formData.requestDriverRecord.date = currentModel;
+      $scope.formData.requestCriminalRecord.date = currentModel;
+      $scope.formData.vehicleDescription.date = currentModel;
+      $scope.formData.changeOfStatus.date = currentModel;
+    } else if (modelType === 'signature'){
+      $scope.formData.requestDriverRecord.signature = currentModel;
+      $scope.formData.requestCriminalRecord.signature = currentModel;
+      $scope.formData.vehicleDescription.signature = currentModel;
+      $scope.formData.changeOfStatus.signature = currentModel;
+    } else if (modelType === 'name'){
+      $scope.formData.requestDriverRecord.name = currentModel;
+      $scope.formData.requestCriminalRecord.name = currentModel;
+    } else if (modelType === 'dob'){
+      $scope.formData.requestCriminalRecord.dob = currentModel;
+    } else if (modelType === 'maiden'){
+      $scope.formData.requestCriminalRecord.maidenName = currentModel;
+    }
 };
+
+$scope.checkRequiredFields = function(formType){
+  var requiredFieldsArray;
+  if (formType === 'volunteer'){
+    requiredFieldsArray = {
+      'Membership for': $scope.formData.memberFor ,
+      'Volunteer Name': $scope.formData.riderName , 
+      'Gender': $scope.formData.riderGender , 
+      'Street': $scope.formData.streetAddress,
+      'City': $scope.formData.city , 
+      'State': $scope.formData.state , 
+      'Zip': $scope.formData.zip , 
+      'Preferred phone': $scope.formData.preferredPhone , 
+      'First Emergency Contact name': $scope.formData.firstEmergencyContact.name , 
+      'First Emergency Contact relationship': $scope.formData.firstEmergencyContact.relationship , 
+      'First Emergency Contact street': $scope.formData.firstEmergencyContact.street , 
+      'First Emergency Contact city': $scope.formData.firstEmergencyContact.city , 
+      'First Emergency Contact state': $scope.formData.firstEmergencyContact.state , 
+      'First Emergency Contact zip': $scope.formData.firstEmergencyContact.zip , 
+      'Has adequate vision': $scope.formData.drivingExperience.adequateVision , 
+      'Current employment status': $scope.formData.currentEmployment , 
+      'Has past criminal conviction': $scope.formData.criminalConviction , 
+      'Has been convicted of moving violation in past 3 years': $scope.formData.movingViolation , 
+      'First reference name': $scope.formData.firstReference.name , 
+      'First reference phone or mailing address': $scope.formData.firstReference.phoneOrMailing , 
+      'How are you acquainted with your first reference': $scope.formData.firstReference.acquainted , 
+      'Second reference name': $scope.formData.secondReference.name , 
+      'Second reference phone or mailing address': $scope.formData.secondReference.phoneOrMailing , 
+      'How are you acquainted with your second reference': $scope.formData.secondReference.acquainted , 
+      'Third reference name': $scope.formData.thirdReference.name , 
+      'Third reference phone or mailing address': $scope.formData.thirdReference.phoneOrMailing , 
+      'How are you acquainted with your third reference': $scope.formData.thirdReference.acquainted , 
+      'Agree to check for references - signature': $scope.formData.references.signature , 
+      'Agree to check for references - date': $scope.formData.references.date , 
+      'Member of organization or union': $scope.formData.memberOfProfessionalOrgOrUnion , 
+      'Served in military': $scope.formData.servedInMilitary , 
+      'Authorization to Request Driver Record - name': $scope.formData.requestDriverRecord.name , 
+      'Authorization to Request Driver Record - date of birth': $scope.formData.requestDriverRecord.dob , 
+      'Authorization to Request Driver Record - license number': $scope.formData.requestDriverRecord.licenseNumber , 
+      'Authorization to Request Driver Record - from state': $scope.formData.requestDriverRecord.authorize , 
+      'Authorization to Request Driver Record - signature': $scope.formData.requestDriverRecord.signature,
+      'Authorization to Request Driver Record - date': $scope.formData.requestDriverRecord.date  , 
+      'Authorization to Request Driver Record - checkbox authorization': $scope.formData.requestDriverRecord.agree , 
+      'Authorization to Request Criminal Record - name': $scope.formData.requestCriminalRecord.name , 
+      'Authorization to Request Criminal Record - date of birth': $scope.formData.requestCriminalRecord.dob , 
+      'Authorization to Request Criminal Record - from state': $scope.formData.requestCriminalRecord.authorize , 
+      'Authorization to Request Criminal Record - signature': $scope.formData.requestCriminalRecord.signature , 
+      'Authorization to Request Criminal Record - date': $scope.formData.requestCriminalRecord.date , 
+      'Authorization to Request Driver Record - checkbox authorization': $scope.formData.requestCriminalRecord.agree , 
+      'Do you own the vehicle': $scope.formData.vehicleDescription.vehicleOwner , 
+      'Vehicle make': $scope.formData.vehicleDescription.make , 
+      'Vehicle model':$scope.formData.vehicleDescription.model , 
+      'Vehicle year':$scope.formData.vehicleDescription.year , 
+      'Vehicle registration plate':$scope.formData.vehicleDescription.registrationPlate , 
+      'Number of doors on vehicle': $scope.formData.vehicleDescription.numberOfDoors , 
+      'Vehicle registration expiration': $scope.formData.vehicleDescription.registrationExpiration , 
+      'Vehicle insurance company': $scope.formData.vehicleDescription.insuranceCompany , 
+      'Vehicle agent': $scope.formData.vehicleDescription.agent , 
+      'Vehicle agent email': $scope.formData.vehicleDescription.agentEmailAddress , 
+      'Can your vehicle transport a walker': $scope.formData.vehicleDescription.canTransportWalker , 
+      'Can your vehicle transport a wheelchair': $scope.formData.vehicleDescription.canTransportWheelChair , 
+      'Vehicle general condition': $scope.formData.vehicleDescription.generalCondition , 
+      'Vehicle passenger capacity': $scope.formData.vehicleDescription.passengerCapacity , 
+      'Vehicle can transport pets ': $scope.formData.vehicleDescription.canTransportPets , 
+      'Vehicle has large trunk': $scope.formData.vehicleDescription.hasLargeTrunk , 
+      'Vehicle has covered bed': $scope.formData.vehicleDescription.hasCoveredTruckBed , 
+      'Is it your only vehicle': $scope.formData.vehicleDescription.onlyVehicle , 
+      'Vehicle description - signature': $scope.formData.vehicleDescription.signature , 
+      'Vehicle description - date': $scope.formData.vehicleDescription.date , 
+      'Vehicle description - checkbox authorization': $scope.formData.vehicleDescription.authorize,
+      'Change of Status - signature': $scope.formData.changeOfStatus.signature , 
+      'Change of Status - date': $scope.formData.changeOfStatus.date , 
+      'Checkbox authorization to contact references': $scope.formData.agree
+    }
+  } else if (formType === 'membership'){
+    requiredFieldsArray = {
+      'Membership for': $scope.formData.memberFor ,
+      'Rider Name': $scope.formData.riderName , 
+      'Membership Type': $scope.formData.membership , 
+      'Street': $scope.formData.streetAddress,
+      'City': $scope.formData.city , 
+      'State': $scope.formData.state , 
+      'Zip': $scope.formData.zip , 
+      'Years at Address': $scope.formData.yearsAtAddress , 
+      'It is a Mailing address': $scope.formData.isMailingAddress,
+      'It is a Billing address': $scope.formData.isBillingAddress,
+      'It is a year-round residence': $scope.formData.isYearRoundResidence , 
+      'Primary phone': $scope.formData.primaryPhone , 
+      'Years at Address': $scope.formData.yearsAtAddress ,
+      'First emergency contact (full)': $scope.formData.firstEmergencyContact, 
+      'First emergency contact name': $scope.formData.firstEmergencyContact.name , 
+      'First emergency contact relationship': $scope.formData.firstEmergencyContact.relationship , 
+      'First emergency contact street': $scope.formData.firstEmergencyContact.street , 
+      'First emergency contact city': $scope.formData.firstEmergencyContact.city , 
+      'First emergency contact state': $scope.formData.firstEmergencyContact.state , 
+      'First emergency contact zip': $scope.formData.firstEmergencyContact.zip, 
+      'First emergency contact best phone number': $scope.formData.firstEmergencyContact.bestPhone, 
+      'Second emergency contact (full)': $scope.formData.secondEmergencyContact, 
+      'Second emergency contact name': $scope.formData.secondEmergencyContact.name , 
+      'Second emergency contact relationship': $scope.formData.secondEmergencyContact.relationship , 
+      'Second emergency contact street': $scope.formData.secondEmergencyContact.street , 
+      'Second emergency contact city': $scope.formData.secondEmergencyContact.city , 
+      'Second emergency contact state': $scope.formData.secondEmergencyContact.state , 
+      'Second emergency contact zip': $scope.formData.secondEmergencyContact.zip,
+      'Second emergency contact best phone number': $scope.formData.secondEmergencyContact.bestPhone , 
+      'How did you hear about ITN?': $scope.formData.heardAboutItn , 
+      'Send info to friends or relatives?': $scope.formData.sendInfoToRelativeFriendBiz , 
+      'Customer info (full)': $scope.formData.customerInfo , 
+      'Date of Birth': $scope.formData.customerInfo.dateOfBirth , 
+      'Gender': $scope.formData.customerInfo.gender, 
+      'Marital Status': $scope.formData.customerInfo.maritalStatus , 
+      'Living Arrangement': $scope.formData.customerInfo.livingArrangement , 
+      'Dwelling Arrangement': $scope.formData.customerInfo.dwellingArrangement , 
+      'Languages Spoken': $scope.formData.customerInfo.languages , 
+      'Current transportation means': $scope.formData.customerInfo.currentTransportationMeans, 
+      'Member of Organization or Union': $scope.formData.memberOfProfessionalOrgOrUnion , 
+      'Served in Military': $scope.formData.servedInMilitary, 
+      'Special Needs': $scope.formData.customerInfo.specialNeeds, 
+      'Driving Info (full)': $scope.formData.drivingInfo, 
+      'Has license': $scope.formData.drivingInfo.hasLicense, 
+      'Owns a vehicle': $scope.formData.drivingInfo.ownVehicle, 
+      'Took Driver Improvement classes': $scope.formData.drivingInfo.driverImprovementClasses, 
+      'Driven in last 10 years': $scope.formData.drivingInfo.drivenLast10Years, 
+      'Currently drives': $scope.formData.drivingInfo.currentlyDrive, 
+      'Reduce trip cost by sharing ride': $scope.formData.drivingInfo.reduceCostWithRideshare, 
+      'Agreement (full)': $scope.formData.agreement, 
+      'Agreement signature': $scope.formData.agreement.signature1, 
+      'Agreement date': $scope.formData.agreement.date1, 
+      'Informed consent signature': $scope.formData.agree1, 
+      'Informed consent date': $scope.formData.agreement.signature2,
+    }
+  } else {
+    return true;
+  }
+  
+  for (var field in requiredFieldsArray){
+    console.log('field is ', field);
+    if (requiredFieldsArray.hasOwnProperty(field) && !requiredFieldsArray[field]){
+          console.log('You must fill this required field: ', field);
+          $scope.serverMessage = 'Please complete all required fields. Field missing is:  " ' + field + '"';
+          return false;
+    }
+  }
+  return true;
+};
+
 
   //for contact and newsletter forms
   $scope.submitForm = function(formType){
@@ -569,18 +711,32 @@ var originalFormData = $scope.formData;
     }
     $http.post('/sendmail', formObj)
       .then(function(res){
+        $scope.loading = false;
         $scope.serverMessage = 'Your form was submitted successfully. You should hear back from us soon.';
     }).catch(function(err){
+        $scope.loading = false;
         $scope.serverMessage = 'There was an error submitting your form. Please contact us by phone instead.';
     });
   };
   
+
+  
   //for membership, volunteer and non-rider forms
   $scope.submitFormWithPDF = function(formType){
     console.log('submitForm PDF, formData is ', $scope.formData);
+    $scope.serverMessage = '';
     $scope.formType = formType;
+    var volunteerRequiredComplete = $scope.checkRequiredFields(formType);
+    console.log('volunteerRequiredComplete is ', volunteerRequiredComplete);
     if (!(Object.keys($scope.formData).length === 0 && $scope.formData.constructor === Object)) {
       $scope.loading = true;
+      //check for validations
+      if (!volunteerRequiredComplete){
+        $scope.loading = false;
+        return $scope.serverMessage;
+        // return $scope.serverMessage = 'Please complete all required fields.';
+      }
+      
       if (formType === 'membership' || formType === 'volunteer') {
         $(document).ready(function(){
           $('#pdfVersion').css('display', 'block');
@@ -592,6 +748,7 @@ var originalFormData = $scope.formData;
           $scope.generatePDF();
       } 
     } else {
+      $scope.loading = false;
       $scope.serverMessage = 'You cannot submit an empty form';
     }
   };
@@ -617,10 +774,10 @@ var originalFormData = $scope.formData;
           pdf: $scope.dataPDF,
           formType: $scope.formType
         }).then(function(res){
-            // $scope.loading = false;
+            $scope.loading = false;
             $scope.serverMessage = 'Your form was submitted successfully. You should hear back from us soon.';
         }).catch(function(err){
-          // $scope.loading = false;
+          $scope.loading = false;
           $scope.serverMessage = 'There was an error submitting your form. Please contact us, or consider submitting your form by paper instead.';
         });
       });
@@ -646,8 +803,11 @@ var originalFormData = $scope.formData;
           pdf: $scope.dataPDF,
           formType: $scope.formType
         }).then(function(res){
+            $scope.loading = false;
+            $scope.showForm = false;
             $scope.serverMessage = 'Your form was submitted successfully. You should hear back from us soon.';
         }).catch(function(err){
+          $scope.loading = false;
           $scope.serverMessage = 'There was an error submitting your form. Please contact us, or consider submitting your form by paper instead.';
         });
       });
@@ -774,3 +934,12 @@ myApp.service('FormService', function($http){
     }) 
   }
 });
+
+
+
+myApp.directive('contactForm', function(){
+  return {
+    restrict: "E",
+    templateUrl: "../views/contact-form.html"
+  }
+})

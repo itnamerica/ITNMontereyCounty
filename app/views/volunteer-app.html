@@ -57,7 +57,17 @@
                   <li>Maintain confidentiality. Please do not share personal information. A professional manner is absolutely necessary.</li>
                 </ol>
                     
-                  <p class="mt-50">ITN<em>America</em> respects your privacy and will keep all volunteer information confidential. Personal information is used for aggregate reporting purposes only, to enable group distribution comparisons across affiliates and between the ITN<em>America</em> volunteer population and the US older population in general.</p>
+                <h3 class="mt-50 mb-25">Informed Consent</h3>
+
+                <p>The Independent Transportation Network (ITN) is a nonprofit, community-based organization providing dignified, consumer-oriented transportation for seniors and people with visual impairments.</p>
+
+                <p>As an ITNAmerica affiliate community, your ITN benefits from more than two decades of research to develop a model for economically sustainable transportation. Among the public and private organizations that have supported this research are the Federal Transit Administration, the Transportation Research Board (National Academies of Science), AARP, the Great Bay Foundation for Social Entrepreneurs,  the Atlantic Philanthropies, the Silver Century Foundation and the Centers for Disease Control[MJ1] . Thousands of private individuals and their families have participated in this research and development, without which, this service would not be possible.</p>
+
+                <p>In the spirit of this public/private effort, to continue the development and analysis that will allow ITNAmerica to better understand community  mobility needs, and to continuously improve the quality and sustainability of the service, we routinely collect data about riders, volunteers,  and the rides we deliver. The identity of our riders and volunteers is kept entirely confidential in all reports we use for these purposes.</p>
+
+                <p>In addition to this routine data collection, ITNAmerica also conducts research. From time to time, we may ask you to participate in a research project. Your participation in the ITNAmerica research studies is voluntary and confidential. If you prefer not to participate in the research studies, your decision will not affect the quality of your service or your eligibility to participate in the ITN system. Your participation in research efforts may benefit you through improved services and programs.  There are no foreseeable risks to participating in ITN’s research collection efforts.</p>
+
+                <p>Your signature indicates that you understand that routinely-collected ITNAmerica data will be used to study and improve transportation service and sustainability, and that you may, from time to time, be asked questions about your use of the service. We will do our best to provide rides for you and we will always strive to inform you when we cannot provide a ride. However, we are not responsible for any costs or expenses you may incur when we are unable to provide a ride for a specific time and place.</p>
                   
                   <p><strong>Important Note: All fields with an asterisk (<span style="color:red">*</span>) are required.</strong></p>
                   
@@ -67,7 +77,7 @@
                   
                 
               
-                  <form novalidate name="itnForm" ng-submit="submitFormWithPDF('volunteer'); showForm = false" role="volunteer form" ng-model="formData" ng-show="showForm">
+                  <form novalidate name="itnForm" ng-submit="submitFormWithPDF('volunteer')" role="volunteer form" ng-model="formData" ng-show="showForm">
                     <br style="clear:both">
                     
                     <div class="member-tabs" ng-if="tab===1" id="tab1">
@@ -102,11 +112,9 @@
                         </div>
                       </div>
                       
-                  
-                      <!-- <button type="button" ng-click="nextTabMemberApp()" ng-disabled=" itnForm.adequateVision.$invalid || itnForm.currentEmployment.$invalid || itnForm.gender.$invalid || itnForm.riderName.$invalid ||  itnForm.street.$invalid || itnForm.city.$invalid || itnForm.state.$invalid || itnForm.zip.$invalid || itnForm.preferredPhone.$invalid || itnForm.firstEmName.$invalid  || itnForm.firstEmRelationship.$invalid || itnForm.firstEmPreferredPhone.$invalid || itnForm.firstEmState.$invalid || itnForm.firstEmCity.$invalid || itnForm.firstEmZip.$invalid || itnForm.firstEmStreet.$invalid " class="next-tab btn btn-lg btn-primary pull-right itn-green-bg"  style="margin-left:2%;margin-top:-50px">Next</button> -->
-                      
                       <button type="button" ng-click="nextTabMemberApp()" class="next-tab btn btn-lg btn-primary pull-right itn-green-bg"  style="margin-left:2%;margin-top:-50px">Next</button>
                   
+                      
                       
                         <div class="form-group" ng-class="{ 'has-error' : itnForm.riderName.$invalid && !itnForm.riderName.$pristine }">
                           <label for="rider name">Name: <span style="color:red">*</span></label><br>
@@ -119,7 +127,7 @@
                         <div class="form-group ta-center" ng-class="{ 'has-error' : itnForm.gender.$invalid && !itnForm.gender.$pristine }">
                           <label for="gender">Gender: <span style="color:red">*</span> </label><br>
                           <label class="radio-inline"><input type="radio" name="gender"  value="female" ng-model="formData.riderGender">Female</label>
-                          <label class="radio-inline"><input type="radio" name="gender" value="male" ng-model="formData.customerInfo.gender" required>Male</label>
+                          <label class="radio-inline"><input type="radio" name="gender" value="male" ng-model="formData.riderGender" required>Male</label>
                           <span ng-if="itnForm.gender.$error.required && !itnForm.gender.$pristine" class="help-block">{{errorMessages.required}}</span>
                         </div>
                         
@@ -300,7 +308,7 @@
                           <div class="ta-center required-warning"><em>Please enter all required fields with an asterik (<span style="color:red">*</span>) before going to the next page.</em></div>
 
                           
-                          <!-- <button type="button" ng-click="nextTabMemberApp()" ng-disabled=" itnForm.adequateVision.$invalid || itnForm.currentEmployment.$invalid || itnForm.gender.$invalid || itnForm.riderName.$invalid ||  itnForm.street.$invalid || itnForm.city.$invalid || itnForm.state.$invalid || itnForm.zip.$invalid || itnForm.preferredPhone.$invalid || itnForm.firstEmName.$invalid  || itnForm.firstEmRelationship.$invalid || itnForm.firstEmPreferredPhone.$invalid || itnForm.firstEmState.$invalid || itnForm.firstEmCity.$invalid || itnForm.firstEmZip.$invalid || itnForm.firstEmStreet.$invalid " class="next-tab btn btn-lg btn-primary pull-right itn-green-bg"  style="margin-left:2%">Next</button> -->
+                          <!-- <button type="button" ng-click="nextTabMemberApp()" ng-disabled="itnForm.memberFor.$invalid ||  itnForm.adequateVision.$invalid || itnForm.currentEmployment.$invalid || itnForm.gender.$invalid || itnForm.riderName.$invalid ||  itnForm.street.$invalid || itnForm.city.$invalid || itnForm.state.$invalid || itnForm.zip.$invalid || itnForm.preferredPhone.$invalid || itnForm.firstEmName.$invalid  || itnForm.firstEmRelationship.$invalid || itnForm.firstEmPreferredPhone.$invalid || itnForm.firstEmState.$invalid || itnForm.firstEmCity.$invalid || itnForm.firstEmZip.$invalid || itnForm.firstEmStreet.$invalid " class="next-tab btn btn-lg btn-primary pull-right itn-green-bg"  style="margin-left:2%">Next</button> -->
                           
                           <button type="button" ng-click="nextTabMemberApp()" class="next-tab btn btn-lg btn-primary pull-right itn-green-bg"  style="margin-left:2%;">Next</button>
                     </div><!--tab 1-->
@@ -644,9 +652,9 @@
                 
                 <div class="form-group ta-center" ng-class="{ 'has-error' : itnForm.memberOfProfessionalOrgOrUnion.$invalid && !itnForm.memberOfProfessionalOrgOrUnion.$pristine }">
                   <label for="professional organization or labor union">Are you part of any professional organizations or labor unions?: <span style="color:red">*</span> </label><br>
-                  <label class="radio-inline"><input ng-model="formData.memberOfProfessionalOrgOrUnion" type="radio" name="memberOfProfessionalOrgOrUnion" value="yes" ng-click="specifyUnions = !specifyUnions">Yes</label>
-                  <label class="radio-inline"><input type="radio" name="memberOfProfessionalOrgOrUnion" value="no" required>No</label>
-                    <input ng-model="formData.memberOfProfessionalOrgOrUnions" type="text" class="form-control" id="unions" name="unions" placeholder="Please list:" ng-if="specifyUnions">
+                  <label class="radio-inline"><input ng-model="formData.memberOfProfessionalOrgOrUnion" type="radio" name="memberOfProfessionalOrgOrUnion" value="yes" ng-click="specifyUnions = true">Yes</label>
+                  <label class="radio-inline"><input ng-model="formData.memberOfProfessionalOrgOrUnion" type="radio" name="memberOfProfessionalOrgOrUnion" value="no" ng-click="specifyUnions = false" required>No</label>
+                    <input ng-model="formData.memberOfProfessionalOrgOrUnions" type="text" class="form-control" id="unions" name="unions" placeholder="Please list:" ng-show="specifyUnions">
                     <span ng-if="itnForm.memberOfProfessionalOrgOrUnion.$error.required && !itnForm.memberOfProfessionalOrgOrUnion.$pristine" class="help-block">{{errorMessages.required}}</span>
                 </div>
                 
@@ -1263,7 +1271,6 @@
                           </div>
                           
                           <!-- <button type="button" ng-click="nextTabMemberApp()" ng-disabled="itnForm.signature5.$invalid || itnForm.date5.$invalid" class="next-tab btn btn-lg  btn-primary pull-right itn-green-bg"  style="margin-left:2%;margin-top:-50px">Next</button> -->
-                          <button type="button" ng-click="nextTabMemberApp()" class="next-tab btn btn-lg btn-primary pull-right itn-green-bg"  style="margin-left:2%;margin-top:-50px">Next</button>
                           <button type="button" ng-click="nextTabMemberApp('prev')" class="next-tab btn btn-lg btn-primary pull-right itn-green-bg"  style="margin-left:2%;margin-top:-50px">Previous</button>  
                           
                           
@@ -1377,7 +1384,7 @@
   <br><label for="state">State: <span style="color:red">*</span></label><br>
   {{formData.firstEmergencyContact.state}}
   <br><label for="zip">Zip Code: <span style="color:red">*</span></label><br>
-  {{formData.firstEmergencyContact.zipPattern}}
+  {{formData.firstEmergencyContact.zip}}
   <br><label for="home phone">Preferred Phone: <span style="color:red">*</span></label><br>
   {{formData.firstEmergencyContact.preferredPhone}}
   <br><label for="cell phone">Other Phone: </label><br>
@@ -1390,7 +1397,7 @@
   {{formData.drivingExperience.years}}
   <br><label for="Estimated miles driven last year">Estimated miles driven last year:</label><br>
   {{formData.drivingExperience.milesDrivenLastYr}}
-  <br><label for="vision last examined">When was your vision last examined: <span style="color:red">*</span></label><br>
+  <br><label for="vision last examined">When was your vision last examined:</label><br>
   {{formData.drivingExperience.visionLastExamined}}
   <br><label for="vision adequate driving">Is your vision adequate for driving: <span style="color:red">*</span></label><br>
   {{formData.drivingExperience.adequateVision}} {{formData.drivingExperience.adequateVisionLimitations}}
@@ -1442,7 +1449,7 @@
   
   <p>This information is correct to the best of my knowledge. I give the Independent Transportation Network permission to check on this information, and to contact references.</p>
   
-  <br><label for="signature">Signature (type your full name):</label><br>
+  <br><label for="signature">Signature: <span style="color:red">*</span></label><br>
   {{formData.references.signature}}
   <br><label for="date">Agreement Date: <span style="color:red">*</span></label><br>
   {{formData.references.date}}
@@ -1516,7 +1523,7 @@
   <h3>Authorization to Request Driver Record</h3>
   <br><label for="name">Name <span style="color:red">*</span>:</label><br>
   {{formData.requestDriverRecord.name}}
-  <br><label for="maiden name">Previous/Maiden name (if applicable) <span style="color:red">*</span> :</label><br>
+  <br><label for="maiden name">Previous/Maiden name (if applicable):</label><br>
   {{formData.requestDriverRecord.maidenName}}
   <br><label for="date of birth">Date of Birth <span style="color:red">*</span>:</label><br>
   {{formData.requestDriverRecord.dob}}
@@ -1541,7 +1548,7 @@
   
   <br><label for="name">Name <span style="color:red">*</span>:</label><br>
   {{formData.requestCriminalRecord.name}}
-  <br><label for="maiden name">Previous/maiden name (if applicable) <span style="color:red">*</span> :</label><br>
+  <br><label for="maiden name">Previous/maiden name (if applicable):</label><br>
   {{formData.requestCriminalRecord.maidenName}}
   <br><label for="date of birth">Date of Birth <span style="color:red">*</span>:</label><br>
   {{formData.requestCriminalRecord.dob}}
