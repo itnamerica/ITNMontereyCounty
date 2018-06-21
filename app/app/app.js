@@ -246,8 +246,11 @@ myApp.controller('MainController', ['$scope', '$transitions','$http', '$anchorSc
       secondReference: {},
       thirdReference: {},
       firstEmergencyContact: {},
-      secondEmergencyContact: {}
-    };    
+      secondEmergencyContact: {},
+      customerInfo: {},
+      drivingInfo: {},
+      agreement: {}
+    };
     var originalFormData = $scope.formData;
     $scope.showForm = false;
 
@@ -667,19 +670,24 @@ $scope.checkRequiredFields = function(formType){
           console.log('You must fill this required field: ', field);
           $scope.serverMessage = 'Please complete all required fields. Field missing is:  " ' + field + '"';
           return false;
+      }
     }
-  }
-  return true;
-};
+    return true;
+  };
 
+
+  $scope.validateContactInputs = function(){
+    return ($scope.formData.name && $scope.formData.email && $scope.formData.phone && $scope.formData.subject && $scope.formData.messageBody ) ? true : false;
+  };
 
   //for contact and newsletter forms
   $scope.submitForm = function(formType){
-    var objLength = Object.keys($scope.formData).length;
+    var contactInputsValid = $scope.validateContactInputs();
+    console.log('valid contact is ', contactInputsValid);
     var formObj = {};
     $scope.formType = formType;
     $scope.loading = true;
-    if (formType === 'contact' && objLength === 5){
+    if (formType === 'contact' && contactInputsValid){
       console.log('submitting valid contact form');
       formObj = {
         from: '"ITNMontereyCounty Web User" <donotreply@itnamerica.com>',
@@ -693,7 +701,7 @@ $scope.checkRequiredFields = function(formType){
         "<p><strong>Message Body:</strong>: " + $scope.formData.messageBody + "</p>\n ",
         formType: $scope.formType
       }
-    } else if (formType === 'newsletter' && objLength === 1){
+    } else if (formType === 'newsletter' && $scope.formData.email){
       console.log('submitting valid newsletter form');
         formObj = {
           from: '"ITNMontereyCounty Web User" <donotreply@itnamerica.com>',
